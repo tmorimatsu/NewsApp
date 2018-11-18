@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="EclipseCodeFormatter">
-    <option name="defaultSettings" value="true" />
-    <option name="formatter" value="ECLIPSE" />
-    <option name="id" value="1531884701673" />
-    <option name="importOrder" value="java;javax;android;r2android;org;com;jp.co;" />
-    <option name="name" value="default" />
-    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../suumo_android/.settings/org.eclipse.jdt.core.prefs" />
-  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
