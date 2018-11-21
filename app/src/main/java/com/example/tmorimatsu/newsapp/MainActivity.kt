@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.widget.TextView
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // APIエンドポイントの生成
         val api = retrofit.create(ApiService::class.java)
         // 引数によってapiエンドポイントを指定し、リクエスト
-        api.getNews("APIキー", "jp").enqueue(object: Callback<ResponseData> {
+        api.getNews("取得したAPIキー", "jp").enqueue(object: Callback<ResponseData> {
 
             // 通信が失敗したときの処理
             override fun onFailure(call: Call<ResponseData>?, t: Throwable?) {
@@ -39,32 +38,16 @@ class MainActivity : AppCompatActivity() {
                 val res = response?.body() ?: return
 
                 // NewsAdapterへ渡すデータセットを作成
-                val dataset = ArrayList<Article>()
-                for (article in res.articles) {
-                    // 取得できた記事が空であればデータセットに追加しない
-                    if(article.content.isNullOrEmpty()) {
-                        continue
-                    }
-                    dataset.add(article)
+                val dataset = res.articles.filter { !it.content.isNullOrEmpty() }
+
+                findViewById<RecyclerView>(R.id.list).apply(){
+                    // リストの罫線を設定
+                    addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+                    // 生成したLinearLayoutManagerをセット
+                    layoutManager = LinearLayoutManager(this@MainActivity)
+                    // RecyclerViewの生成したNewsAdapter をセット
+                    adapter = NewsAdapter(this@MainActivity, dataset)
                 }
-
-                // RecyclerViewの紐づけ
-                val list = findViewById<RecyclerView>(R.id.list)
-
-                // NewsAdapterの生成
-                val adapter = NewsAdapter(this@MainActivity, dataset)
-
-                // ①
-                val layoutManager = LinearLayoutManager(this@MainActivity)
-
-                // リストの罫線を設定
-                list.addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
-
-                // RecyclerVeiwの生成したNewsAdapter をセット
-                list.adapter = adapter
-
-                // 生成したLinearLayoutManagerをセット
-                list.layoutManager = layoutManager
             }
         })
     }

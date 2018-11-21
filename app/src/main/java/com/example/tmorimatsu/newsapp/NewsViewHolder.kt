@@ -7,8 +7,8 @@ import android.widget.TextView
 
 class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val imageView = itemView.findViewById<ImageView>(R.id.image_row)
-    val descriptionText = itemView.findViewById<TextView>(R.id.content_row)
-    val publishText = itemView.findViewById<TextView>(R.id.publish_row)
-    val row = itemView.findViewById<View>(R.id.row)
+    val imageView = itemView.findViewById<ImageView>(R.id.image_row)!!
+    val descriptionText = itemView.findViewById<TextView>(R.id.content_row)!!
+    val publishText = itemView.findViewById<TextView>(R.id.publish_row)!!
+    val row = itemView.findViewById<View>(R.id.row)!!
 }
