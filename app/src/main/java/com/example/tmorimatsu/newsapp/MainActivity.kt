@@ -49,22 +49,16 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // RecyclerViewの紐づけ
-                val list = findViewById<RecyclerView>(R.id.list)
+                findViewById<RecyclerView>(R.id.list).apply {
+                    // リストの罫線を設定
+                    addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
 
-                // NewsAdapterの生成
-                val adapter = NewsAdapter(this@MainActivity, dataset)
+                    // RecyclerVeiwの生成したNewsAdapter をセット
+                    adapter = NewsAdapter(this@MainActivity, dataset)
 
-                // ①
-                val layoutManager = LinearLayoutManager(this@MainActivity)
-
-                // リストの罫線を設定
-                list.addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
-
-                // RecyclerVeiwの生成したNewsAdapter をセット
-                list.adapter = adapter
-
-                // 生成したLinearLayoutManagerをセット
-                list.layoutManager = layoutManager
+                    // 生成したLinearLayoutManagerをセット
+                    layoutManager = LinearLayoutManager(this@MainActivity)
+                }
             }
         })
     }
